@@ -1,0 +1,54 @@
+{
+  "name": "agentree",
+  "version": "0.1.0",
+  "description": "Spawn isolated git worktrees for AI coding agents.",
+  "type": "module",
+  "bin": {
+    "agentree": "dist/cli.js"
+  },
+  "main": "dist/cli.cjs",
+  "module": "dist/cli.js",
+  "types": "dist/cli.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src test --ext .ts",
+    "format": "prettier --write src test",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "git",
+    "worktree",
+    "claude",
+    "cursor",
+    "agent",
+    "ai",
+    "cli",
+    "parallel"
+  ],
+  "author": "Jana",
+  "license": "MIT",
+  "dependencies": {
+    "cac": "^6.7.14",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}
