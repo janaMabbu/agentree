@@ -44,7 +44,7 @@ export async function newWorktree(name: string, opts: NewOptions): Promise<void>
 
   log.success(`Done! Next steps:`)
   console.log(`  cd ${targetPath}`)
-  console.log(`  agentree run ${name} claude`)
+  console.log(`  agentplex run ${name} claude`)
 }
 
 function runCommand(cmd: string, cwd: string): Promise<void> {

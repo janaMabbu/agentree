@@ -32,7 +32,7 @@ describe('listWorktrees command', () => {
   })
 
   it('includes all worktrees after adding one', () => {
-    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), 'agentree-list-wt-')))
+    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), 'agentplex-list-wt-')))
     try {
       execFileSync('git', ['worktree', 'add', '-b', 'list-test-branch', wtDir], {
         cwd: repoDir,

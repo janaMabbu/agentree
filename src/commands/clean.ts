@@ -12,7 +12,7 @@ export function cleanWorktree(name: string, opts: CleanOptions): void {
 
   if (!target) {
     throw new Error(
-      `No worktree named "${name}" found. Run "agentree list" to see available worktrees.`,
+      `No worktree named "${name}" found. Run "agentplex list" to see available worktrees.`,
     )
   }
 

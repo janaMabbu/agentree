@@ -25,7 +25,7 @@ describe('cleanWorktree command', () => {
 
   function addWorktree(name: string): string {
     // realpathSync resolves macOS /var -> /private/var so paths match git output
-    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), `agentree-clean-${name}-`)))
+    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), `agentplex-clean-${name}-`)))
     execFileSync('git', ['worktree', 'add', '-b', name, wtDir], { cwd: repoDir, stdio: 'pipe' })
     return wtDir
   }

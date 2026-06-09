@@ -5,7 +5,7 @@ import { cleanWorktree } from './commands/clean.js'
 import { runAgent } from './commands/run.js'
 import * as log from './log.js'
 
-const cli = cac('agentree')
+const cli = cac('agentplex')
 
 cli
   .command('new <name>', 'Create a new isolated worktree for an agent')
