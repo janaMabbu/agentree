@@ -1,10 +1,10 @@
 {
-  "name": "agentplex",
+  "name": "agent-plex",
   "version": "0.1.0",
   "description": "Spawn isolated git worktrees for AI coding agents.",
   "type": "module",
   "bin": {
-    "agentplex": "dist/cli.js"
+    "agent-plex": "dist/cli.js"
   },
   "main": "dist/cli.cjs",
   "module": "dist/cli.js",

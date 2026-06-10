@@ -8,7 +8,7 @@ describe('loadConfig', () => {
   let tmpDir: string
 
   beforeEach(() => {
-    tmpDir = mkdtempSync(join(tmpdir(), 'agentplex-config-test-'))
+    tmpDir = mkdtempSync(join(tmpdir(), 'agent-plex-config-test-'))
   })
 
   afterEach(() => {
@@ -27,7 +27,7 @@ describe('loadConfig', () => {
 
   it('loads and merges a config file', () => {
     writeFileSync(
-      join(tmpDir, '.agentplex.json'),
+      join(tmpDir, '.agent-plex.json'),
       JSON.stringify({
         basePath: '/tmp/worktrees',
         install: 'pnpm install',
@@ -43,7 +43,7 @@ describe('loadConfig', () => {
   })
 
   it('uses defaults for missing keys in partial config', () => {
-    writeFileSync(join(tmpDir, '.agentplex.json'), JSON.stringify({ install: 'npm ci' }))
+    writeFileSync(join(tmpDir, '.agent-plex.json'), JSON.stringify({ install: 'npm ci' }))
     const config = loadConfig(tmpDir)
     expect(config.basePath).toBe('..')
     expect(config.install).toBe('npm ci')
@@ -51,7 +51,7 @@ describe('loadConfig', () => {
   })
 
   it('handles malformed JSON gracefully', () => {
-    writeFileSync(join(tmpDir, '.agentplex.json'), 'not-json{{{')
+    writeFileSync(join(tmpDir, '.agent-plex.json'), 'not-json{{{')
     const config = loadConfig(tmpDir)
     expect(config.basePath).toBe('..')
   })
