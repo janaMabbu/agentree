@@ -56,7 +56,7 @@ describe('git helpers', () => {
 
   it('worktreeAdd creates a new worktree on a new branch', () => {
     // realpathSync resolves macOS /var -> /private/var symlink
-    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), 'agentplex-wt-')))
+    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), 'agent-plex-wt-')))
     try {
       worktreeAdd(wtDir, 'feature-test', true, repoDir)
       const list = worktreeList(repoDir)
@@ -73,7 +73,7 @@ describe('git helpers', () => {
   })
 
   it('worktreeRemove removes the worktree', () => {
-    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), 'agentplex-wt-')))
+    const wtDir = realpathSync(mkdtempSync(join(tmpdir(), 'agent-plex-wt-')))
     try {
       worktreeAdd(wtDir, 'remove-test', true, repoDir)
       worktreeRemove(wtDir, false, repoDir)

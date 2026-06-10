@@ -1,4 +1,4 @@
-# agentplex
+# agent-plex
 
 > Spawn isolated git worktrees for AI coding agents.
 
@@ -6,32 +6,32 @@
 
 Running Claude Code, Cursor, or aider in parallel? Each agent needs its own directory or they stomp on each other's changes. `git worktree` gives you isolated folders, but it doesn't copy your `.env` files, run `npm install`, or keep track of what's where.
 
-`agentplex` closes the gap in three commands.
+`agent-plex` closes the gap in three commands.
 
 ## Install
 
 ```bash
-npm install -g agentplex
+npm install -g agent-plex
 # or
-pnpm add -g agentplex
+pnpm add -g agent-plex
 ```
 
 ## Quickstart
 
 ```bash
 # 1. Create an isolated worktree for a new feature
-agentplex new search
+agent-plex new search
 
 # 2. Open Claude Code inside it
-agentplex run search claude
+agent-plex run search claude
 
 # 3. See all your worktrees
-agentplex list
+agent-plex list
 ```
 
 ## Commands
 
-### `agentplex new <name> [options]`
+### `agent-plex new <name> [options]`
 
 Creates a worktree at `../<repo>-<name>`, copies declared env files, and optionally runs your install command.
 
@@ -41,17 +41,17 @@ Creates a worktree at `../<repo>-<name>`, copies declared env files, and optiona
 | `--no-install` | Skip the install command from config |
 
 ```bash
-agentplex new search                     # worktree on new `search` branch
-agentplex new hotfix --branch fix-pay    # worktree using existing branch `fix-pay`
-agentplex new experiment --no-install    # skip npm/pnpm install
+agent-plex new search                     # worktree on new `search` branch
+agent-plex new hotfix --branch fix-pay    # worktree using existing branch `fix-pay`
+agent-plex new experiment --no-install    # skip npm/pnpm install
 ```
 
-### `agentplex list` (alias: `agentplex ls`)
+### `agent-plex list` (alias: `agent-plex ls`)
 
 Lists all worktrees for the current repo: name, branch, last modified date, path.
 
 ```bash
-agentplex list
+agent-plex list
 ```
 
 ```
@@ -62,17 +62,17 @@ myrepo-s…  search        Jun 08 2026 /Users/you/myrepo-search
 myrepo-h…  fix-pay       Jun 08 2026 /Users/you/myrepo-hotfix
 ```
 
-### `agentplex run <name> <agent>`
+### `agent-plex run <name> <agent>`
 
 Starts an agent inside a named worktree. The agent command is resolved via `config.agents`, falling back to the raw string.
 
 ```bash
-agentplex run search claude      # runs `claude` in the search worktree
-agentplex run hotfix cursor      # runs `cursor .` in the hotfix worktree
-agentplex run search "aider ."   # raw command
+agent-plex run search claude      # runs `claude` in the search worktree
+agent-plex run hotfix cursor      # runs `cursor .` in the hotfix worktree
+agent-plex run search "aider ."   # raw command
 ```
 
-### `agentplex clean <name> [options]`
+### `agent-plex clean <name> [options]`
 
 Removes a worktree. Optionally deletes its branch and prunes stale refs.
 
@@ -82,14 +82,14 @@ Removes a worktree. Optionally deletes its branch and prunes stale refs.
 | `--delete-branch` | Also delete the worktree's git branch |
 
 ```bash
-agentplex clean search
-agentplex clean hotfix --delete-branch
-agentplex clean experiment --force --delete-branch
+agent-plex clean search
+agent-plex clean hotfix --delete-branch
+agent-plex clean experiment --force --delete-branch
 ```
 
 ## Config
 
-Place `.agentplex.json` in your repo root. All keys are optional.
+Place `.agent-plex.json` in your repo root. All keys are optional.
 
 ```json
 {
@@ -115,30 +115,30 @@ Place `.agentplex.json` in your repo root. All keys are optional.
 ### Two agents on the same repo
 
 ```bash
-agentplex new feature-a    # agent 1 works here
-agentplex new feature-b    # agent 2 works here
+agent-plex new feature-a    # agent 1 works here
+agent-plex new feature-b    # agent 2 works here
 
 # In two separate terminals:
-agentplex run feature-a claude
-agentplex run feature-b cursor
+agent-plex run feature-a claude
+agent-plex run feature-b cursor
 ```
 
 ### Reviewing an agent's work
 
 ```bash
-agentplex list             # see what branches exist
+agent-plex list             # see what branches exist
 cd /path/to/myrepo-feature-a
 git diff main             # review changes
 git merge feature-a       # merge when happy
-agentplex clean feature-a --delete-branch
+agent-plex clean feature-a --delete-branch
 ```
 
 ### Using an existing branch
 
 ```bash
 git fetch origin fix-important-bug
-agentplex new bugfix --branch fix-important-bug
-agentplex run bugfix claude
+agent-plex new bugfix --branch fix-important-bug
+agent-plex run bugfix claude
 ```
 
 ### With custom install
@@ -150,7 +150,7 @@ agentplex run bugfix claude
 ```
 
 ```bash
-agentplex new myfeature    # runs pnpm install automatically
+agent-plex new myfeature    # runs pnpm install automatically
 ```
 
 > **GIF placeholder** — parallel agents demo coming soon.
@@ -158,16 +158,16 @@ agentplex new myfeature    # runs pnpm install automatically
 ## FAQ
 
 **What about pnpm workspaces?**
-Set `"install": "pnpm install"` in `.agentplex.json`. Each worktree gets its own `node_modules` via pnpm's virtual store — it's fast.
+Set `"install": "pnpm install"` in `.agent-plex.json`. Each worktree gets its own `node_modules` via pnpm's virtual store — it's fast.
 
 **What about monorepos?**
-`agentplex` works at the git repo level. For monorepos, set `basePath` to a sibling directory and `install` to your workspace install command. Multi-repo support is out of scope for v1.
+`agent-plex` works at the git repo level. For monorepos, set `basePath` to a sibling directory and `install` to your workspace install command. Multi-repo support is out of scope for v1.
 
 **Will this conflict with my main worktree?**
 No. Each worktree is a fully independent directory with its own branch. Changes in one cannot affect another until you merge.
 
 **Can I use it with aider?**
-Yes. Set `"agents": { "aider": "aider" }` in `.agentplex.json` or just run `agentplex run <name> "aider ."`.
+Yes. Set `"agents": { "aider": "aider" }` in `.agent-plex.json` or just run `agent-plex run <name> "aider ."`.
 
 ## Running tests
 
@@ -177,7 +177,7 @@ npm install && npm test
 
 ## Contributing
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/janaMabbu/agentplex/issues/new).
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/janaMabbu/agent-plex/issues/new).
 
 ## Author
 
