@@ -10,7 +10,7 @@ export function runAgent(name: string, agentArg: string): void {
 
   if (!target) {
     throw new Error(
-      `No worktree named "${name}" found. Run "agent-plex list" to see available worktrees.`,
+      `No worktree named "${name}" found. Run "agentplex list" to see available worktrees.`,
     )
   }
 
