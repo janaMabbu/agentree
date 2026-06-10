@@ -1,10 +1,10 @@
 {
-  "name": "agent-plex",
+  "name": "agentfork",
   "version": "0.1.0",
   "description": "Spawn isolated git worktrees for AI coding agents.",
   "type": "module",
   "bin": {
-    "agent-plex": "dist/cli.js"
+    "agentfork": "dist/cli.js"
   },
   "main": "dist/cli.cjs",
   "module": "dist/cli.js",

@@ -1,14 +1,14 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 
-export interface AgentPlexConfig {
+export interface AgentForkConfig {
   basePath: string
   copy: string[]
   install?: string
   agents: Record<string, string>
 }
 
-const DEFAULTS: AgentPlexConfig = {
+const DEFAULTS: AgentForkConfig = {
   basePath: '..',
   copy: ['.env', '.env.local'],
   agents: {
@@ -21,17 +21,17 @@ function findConfigFile(startDir: string): string | null {
   let dir = startDir
   let parent = dirname(dir)
   while (parent !== dir) {
-    const candidate = join(dir, '.agent-plex.json')
+    const candidate = join(dir, '.agentfork.json')
     if (existsSync(candidate)) return candidate
     dir = parent
     parent = dirname(dir)
   }
   // Check root directory too
-  const candidate = join(dir, '.agent-plex.json')
+  const candidate = join(dir, '.agentfork.json')
   return existsSync(candidate) ? candidate : null
 }
 
-export function loadConfig(cwd: string): AgentPlexConfig {
+export function loadConfig(cwd: string): AgentForkConfig {
   const configPath = findConfigFile(cwd)
   if (!configPath) return { ...DEFAULTS, agents: { ...DEFAULTS.agents } }
 
@@ -46,7 +46,7 @@ export function loadConfig(cwd: string): AgentPlexConfig {
     return { ...DEFAULTS, agents: { ...DEFAULTS.agents } }
   }
 
-  const file = raw as Partial<AgentPlexConfig>
+  const file = raw as Partial<AgentForkConfig>
   return {
     basePath: typeof file.basePath === 'string' ? file.basePath : DEFAULTS.basePath,
     copy: Array.isArray(file.copy) ? (file.copy as string[]) : DEFAULTS.copy,
